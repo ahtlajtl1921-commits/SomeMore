@@ -15,7 +15,7 @@
 
     <nav class="fixed w-full bg-white/90 backdrop-blur-md z-[100] border-b border-gray-100">
         <div class="max-w-6xl mx-auto px-5 h-16 flex items-center justify-between">
-            <div class="text-xl font-bold text-[#f43f5e] tracking-tight text-shadow-sm">설렘 한 편</div>
+            <div class="text-xl font-bold text-[#f43f5e] tracking-tight">설렘 한 편</div>
             <div class="flex items-center space-x-6 text-[14px] font-semibold text-gray-600">
                 <a href="#about" class="hover:text-[#f43f5e]">About</a>
                 <a href="#status" class="hover:text-[#f43f5e]">모집현황</a>
@@ -24,113 +24,96 @@
         </div>
     </nav>
 
-    <header class="relative h-[90vh] flex items-center justify-center overflow-hidden">
+    <header class="relative h-[80vh] flex items-center justify-center overflow-hidden">
         <img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&q=80" class="absolute inset-0 w-full h-full object-cover scale-105" alt="메인배경">
         <div class="absolute inset-0 gradient-bg z-10"></div>
         <div class="relative z-20 text-center text-white px-5 mt-20">
-            <p class="text-rose-400 font-bold mb-4 tracking-widest uppercase text-sm">Gwangju & Daejeon Dating</p>
-            <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight">
-                5,000명이 선택한<br><span class="text-rose-400">직장인 로테이션</span> 소개팅
-            </h1>
-            <p class="text-lg opacity-90 mb-10 font-light max-w-lg mx-auto leading-relaxed">
-                검증된 직장인들만 모이는 프라이빗한 공간.<br>당신의 설레는 다음 이야기를 시작하세요.
-            </p>
-            <a href="#apply" class="inline-block bg-[#f43f5e] hover:bg-rose-600 px-12 py-5 rounded-full text-lg font-bold shadow-2xl shadow-rose-500/30 transition-all">지금 무료 참가신청</a>
+            <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight">5,000명이 선택한<br><span class="text-rose-400">직장인 로테이션</span> 소개팅</h1>
+            <a href="#apply" class="inline-block bg-[#f43f5e] hover:bg-rose-600 px-12 py-5 rounded-full text-lg font-bold shadow-2xl transition-all">지금 무료 참가신청</a>
         </div>
     </header>
 
     <section id="status" class="py-24 bg-white">
         <div class="max-w-4xl mx-auto px-5">
-            <h2 class="text-3xl font-bold text-center mb-4">현재 모집 현황</h2>
-            <p class="text-center text-gray-500 mb-12">선별제로 운영되어 조기 마감될 수 있습니다.</p>
+            <div class="flex items-center justify-center gap-3 mb-4">
+                <span class="relative flex h-3 w-3">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-3 w-3 bg-rose-500"></span>
+                </span>
+                <h2 class="text-3xl font-bold text-center">현재 모집 현황</h2>
+            </div>
+            <p class="text-center text-gray-500 mb-12">구글 시트 신청 데이터가 실시간으로 반영됩니다.</p>
             
             <div class="space-y-4">
-                <div class="bg-gray-50 p-6 rounded-2xl flex items-center justify-between border border-gray-100 hover:border-rose-200 transition">
-                    <div>
-                        <span class="bg-rose-500 text-white text-[10px] font-bold px-2 py-1 rounded mb-2 inline-block">모집중</span>
-                        <h3 class="font-bold text-lg text-gray-800">광주 136기 - 직장인 클래식</h3>
-                        <p class="text-sm text-gray-500 mt-1">일정: 2024년 6월 22일(토) 오후 4시</p>
+                <div class="bg-gray-50 p-8 rounded-3xl flex flex-col md:flex-row items-center justify-between border border-gray-100">
+                    <div class="text-center md:text-left mb-4 md:mb-0">
+                        <span id="badge-status" class="bg-rose-500 text-white text-[10px] font-bold px-3 py-1 rounded-full mb-3 inline-block">데이터 로딩중</span>
+                        <h3 class="font-bold text-2xl text-gray-800 mb-1">광주 136기 - 직장인 클래식</h3>
+                        <p class="text-gray-500">일정: 2024년 6월 22일(토) 오후 4시</p>
                     </div>
-                    <div class="text-right">
-                        <span class="text-rose-500 font-bold block">남성 마감임박</span>
-                        <span class="text-blue-500 font-bold block">여성 모집중</span>
+                    <div class="text-center md:text-right">
+                        <div id="applicant-count" class="text-3xl font-black text-rose-500 mb-1">0명 신청 완료</div>
+                        <span id="live-msg" class="text-sm font-bold text-blue-500 tracking-widest">실시간 업데이트 완료</span>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="about" class="py-24 bg-[#fff5f6]">
-        <div class="max-w-6xl mx-auto px-5 grid md:grid-cols-2 gap-16 items-center">
-            <div>
-                <span class="text-rose-500 font-bold mb-2 block">Why 설렘한편?</span>
-                <h2 class="text-3xl md:text-4xl font-bold mb-8 leading-tight text-gray-800">
-                    아무나 참여할 수 없는<br>철저한 '선별제' 시스템
-                </h2>
-                <div class="space-y-6">
-                    <div class="flex gap-4">
-                        <div class="bg-white p-3 rounded-full shadow-sm h-fit">✅</div>
-                        <p class="text-gray-600"><b>신원 보증:</b> 직장 인증 및 프로필 검증을 통과한 분들만 참여 가능합니다.</p>
-                    </div>
-                    <div class="flex gap-4">
-                        <div class="bg-white p-3 rounded-full shadow-sm h-fit">✅</div>
-                        <p class="text-gray-600"><b>실물 만남:</b> 보정 사진이 아닌 실제 모습을 보고 대화하여 매칭률이 매우 높습니다.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="rounded-3xl overflow-hidden shadow-2xl">
-                <img src="https://images.unsplash.com/photo-1522673607200-164881eeca4c?auto=format&fit=crop&q=80" alt="소개팅현장">
+    <section id="apply" class="py-24 bg-gray-50">
+        <div class="max-w-xl mx-auto px-5">
+            <div class="bg-white p-10 rounded-3xl shadow-xl">
+                <h2 class="text-3xl font-bold mb-8 text-center">참가 신청서</h2>
+                <form onsubmit="alert('신청이 완료되었습니다!'); return false;" class="space-y-5">
+                    <input type="text" placeholder="성함" required class="w-full px-4 py-4 bg-gray-50 border rounded-xl outline-none focus:ring-2 focus:ring-rose-500">
+                    <input type="tel" placeholder="연락처" required class="w-full px-4 py-4 bg-gray-50 border rounded-xl outline-none focus:ring-2 focus:ring-rose-500">
+                    <button type="submit" class="w-full bg-[#f43f5e] text-white py-5 rounded-xl font-bold text-lg shadow-lg">신청하기</button>
+                </form>
             </div>
         </div>
     </section>
 
-    <section id="apply" class="py-24 bg-white">
-        <div class="max-w-xl mx-auto px-5 text-center">
-            <h2 class="text-3xl font-bold mb-4">참가 신청하기</h2>
-            <p class="text-gray-500 mb-10">간단한 정보 입력 후 관리자가 개별 연락드립니다.</p>
-            
-            <form onsubmit="alert('신청이 완료되었습니다! 확인 후 문자로 안내드릴게요.'); return false;" class="text-left space-y-5">
-                <div>
-                    <label class="block text-sm font-semibold mb-2">성함/성별</label>
-                    <div class="flex gap-4">
-                        <input type="text" placeholder="이름" required class="flex-1 px-4 py-3 bg-gray-50 border rounded-xl focus:ring-2 focus:ring-rose-500 outline-none">
-                        <select class="px-4 py-3 bg-gray-50 border rounded-xl focus:ring-2 focus:ring-rose-500 outline-none">
-                            <option>남성</option>
-                            <option>여성</option>
-                        </select>
-                    </div>
-                </div>
-                <div>
-                    <label class="block text-sm font-semibold mb-2">나이 (생년)</label>
-                    <input type="number" placeholder="예: 1994" required class="w-full px-4 py-3 bg-gray-50 border rounded-xl focus:ring-2 focus:ring-rose-500 outline-none">
-                </div>
-                <div>
-                    <label class="block text-sm font-semibold mb-2">직장명 / 직업</label>
-                    <input type="text" placeholder="예: OO전자 연구원 / 공무원" required class="w-full px-4 py-3 bg-gray-50 border rounded-xl focus:ring-2 focus:ring-rose-500 outline-none">
-                </div>
-                <div>
-                    <label class="block text-sm font-semibold mb-2">연락처</label>
-                    <input type="tel" placeholder="010-0000-0000" required class="w-full px-4 py-3 bg-gray-50 border rounded-xl focus:ring-2 focus:ring-rose-500 outline-none">
-                </div>
-                <button type="submit" class="w-full bg-[#f43f5e] text-white py-5 rounded-xl font-bold text-lg shadow-xl shadow-rose-200 hover:scale-[1.02] transition-all">
-                    선별 신청 대기하기
-                </button>
-            </form>
-        </div>
-    </section>
+    <script>
+        /**
+         * 1. 구글 시트 설정 방법:
+         * 파일 > 공유 > 웹에 게시 > [전체 문서]를 [CSV]로 선택 후 게시
+         * 아래 주소에 게시된 CSV 링크를 넣으세요.
+         */
+        const SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vR6.../pub?output=csv'; 
 
-    <footer class="py-16 bg-[#111] text-gray-500 text-[13px]">
-        <div class="max-w-6xl mx-auto px-5">
-            <div class="mb-8">
-                <p class="text-gray-300 font-bold mb-2">설렘 한 편</p>
-                <p>광주광역시 서구 상무평화로 | 대표: 이지우</p>
-                <p>사업자등록번호: 787-41-01303 | 고객센터: 1660-0734</p>
-            </div>
-            <div class="pt-8 border-t border-gray-800">
-                <p>© 2024 Seolrem One Story. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
+        async function updateStatus() {
+            try {
+                const response = await fetch(SHEET_CSV_URL);
+                const csvText = await response.text();
+                
+                // 줄 바꿈으로 행을 나눕니다.
+                const rows = csvText.trim().split('\n');
+                // 첫 번째 행(제목)을 제외한 데이터 개수를 셉니다.
+                const count = rows.length - 1;
 
+                // 화면 업데이트
+                const countElement = document.getElementById('applicant-count');
+                const badgeElement = document.getElementById('badge-status');
+                
+                countElement.innerText = `${count}명 신청 완료`;
+
+                if (count >= 15) {
+                    badgeElement.innerText = '마감임박';
+                    badgeElement.className = 'bg-orange-500 text-white text-[10px] font-bold px-3 py-1 rounded-full mb-3 inline-block';
+                } else {
+                    badgeElement.innerText = '모집중';
+                    badgeElement.className = 'bg-green-500 text-white text-[10px] font-bold px-3 py-1 rounded-full mb-3 inline-block';
+                }
+
+            } catch (error) {
+                console.error('데이터를 가져오지 못했습니다.', error);
+                document.getElementById('applicant-count').innerText = '확인 중...';
+            }
+        }
+
+        // 페이지 로드 시 실행 및 1분마다 새로고침
+        updateStatus();
+        setInterval(updateStatus, 60000); 
+    </script>
 </body>
 </html>
