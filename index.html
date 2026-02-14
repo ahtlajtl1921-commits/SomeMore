@@ -2,9 +2,11 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>설렘 한 편 | 커스텀 모임 신청</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@400;600;700&display=swap');
         body { font-family: 'Pretendard', sans-serif; background-color: #f9f9f9; }
         .tab-content { display: none; }
         .tab-content.active { display: block; }
@@ -12,82 +14,134 @@
 </head>
 <body class="p-5">
 
-<div class="max-w-md mx-auto bg-white rounded-3xl shadow-lg overflow-hidden border border-gray-100">
-    <div class="bg-rose-500 p-6 text-white text-center">
-        <h1 class="text-xl font-bold">인연을 선택하세요</h1>
-        <p class="text-sm opacity-80">이미 가입하셨다면 날짜만 선택하세요!</p>
+<div class="max-w-md mx-auto bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-100">
+    <div class="bg-rose-500 p-7 text-white text-center">
+        <h1 class="text-2xl font-bold mb-1">설렘 한 편</h1>
+        <p id="top-msg" class="text-sm opacity-90 font-light">나에게 맞는 인연과 날짜를 선택하세요</p>
     </div>
 
     <div class="p-6">
-        <div id="auth-section" class="mb-6 text-center">
-            <button onclick="showStep('step-register')" class="text-sm text-gray-500 underline">처음 오셨나요? (사진 등록)</button>
-            <button onclick="showStep('step-order')" class="ml-4 text-sm font-bold text-rose-500 underline">기존 회원 신청하기</button>
+        <div id="auth-section" class="mb-8 flex justify-center gap-4">
+            <button id="btn-new" onclick="showStep('step-register')" class="text-xs text-gray-400 underline decoration-gray-300">처음 오셨나요?</button>
+            <button id="btn-old" onclick="showStep('step-order')" class="text-xs font-bold text-rose-500 underline decoration-rose-300">재참여 신청하기</button>
         </div>
 
-        <div id="step-register" class="tab-content space-y-4">
-            <h2 class="font-bold border-b pb-2">회원정보 등록 (최초 1회)</h2>
-            <input type="text" placeholder="성함" class="w-full p-3 border rounded-xl">
-            <div>
-                <label class="block text-xs text-gray-400 mb-1">본인 인증 사진 업로드</label>
-                <input type="file" class="w-full text-sm">
+        <div id="step-register" class="tab-content space-y-5">
+            <h2 class="font-bold text-lg border-b pb-2 text-gray-800">회원정보 등록 <span class="text-rose-500 text-xs ml-2">(최초 1회)</span></h2>
+            <div class="space-y-3">
+                <input type="text" id="reg-name" placeholder="성함" class="w-full p-4 bg-gray-50 border rounded-2xl outline-none focus:ring-2 focus:ring-rose-400">
+                <input type="tel" id="reg-phone" placeholder="연락처 (010-0000-0000)" class="w-full p-4 bg-gray-50 border rounded-2xl outline-none focus:ring-2 focus:ring-rose-400">
+                <div class="p-4 border-2 border-dashed border-rose-100 rounded-2xl bg-rose-50/30">
+                    <label class="block text-xs font-bold text-rose-500 mb-2">본인 인증용 사진 업로드</label>
+                    <input type="file" class="w-full text-xs text-gray-400 file:mr-3 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-rose-50 file:text-rose-700 hover:file:bg-rose-100">
+                </div>
             </div>
-            <button onclick="saveAndGo()" class="w-full bg-black text-white py-3 rounded-xl">등록 후 날짜 선택하기</button>
+            <button onclick="saveUserInfo()" class="w-full bg-gray-900 text-white py-4 rounded-2xl font-bold shadow-lg transition-transform active:scale-95">
+                등록하고 날짜 선택하기
+            </button>
         </div>
 
         <div id="step-order" class="tab-content active space-y-6">
-            <h2 class="font-bold border-b pb-2 text-gray-800">모임 옵션 선택</h2>
+            <h2 class="font-bold text-lg border-b pb-2 text-gray-800">모임 일정 선택</h2>
             
-            <div>
-                <label class="block text-sm font-semibold mb-2">1. 참여 지역</label>
-                <select class="w-full p-3 bg-gray-50 border rounded-xl outline-none focus:ring-2 focus:ring-rose-400">
-                    <option>광주 광역시</option>
-                    <option>대전 광역시</option>
-                </select>
-            </div>
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-sm font-semibold mb-2 text-gray-600">지역 선택</label>
+                    <select class="w-full p-4 bg-gray-50 border rounded-2xl outline-none">
+                        <option>광주 광역시</option>
+                        <option>대전 광역시</option>
+                    </select>
+                </div>
 
-            <div>
-                <label class="block text-sm font-semibold mb-2">2. 참여 날짜 (기수)</label>
-                <div class="grid grid-cols-1 gap-2">
-                    <label class="border p-3 rounded-xl flex justify-between items-center cursor-pointer hover:bg-rose-50 border-rose-100">
-                        <input type="radio" name="date" class="accent-rose-500">
-                        <span class="text-sm font-medium">3/15(토) 오후 4시 [137기]</span>
-                        <span class="text-xs text-rose-500 font-bold">모집중</span>
-                    </label>
-                    <label class="border p-3 rounded-xl flex justify-between items-center cursor-pointer hover:bg-rose-50">
-                        <input type="radio" name="date" class="accent-rose-500">
-                        <span class="text-sm font-medium text-gray-400">3/22(토) 오후 4시 [138기]</span>
-                        <span class="text-xs text-gray-400 font-bold">마감</span>
-                    </label>
+                <div>
+                    <label class="block text-sm font-semibold mb-2 text-gray-600">날짜(기수) 선택</label>
+                    <div class="grid grid-cols-1 gap-3">
+                        <label class="border-2 p-4 rounded-2xl flex justify-between items-center cursor-pointer hover:border-rose-200 bg-white shadow-sm has-[:checked]:border-rose-500 has-[:checked]:bg-rose-50">
+                            <input type="radio" name="date" class="hidden" checked>
+                            <span class="text-[15px] font-semibold">3/15(토) 오후 4시 [137기]</span>
+                            <span class="text-xs text-rose-500 font-bold bg-rose-100 px-2 py-1 rounded">모집중</span>
+                        </label>
+                        <label class="border-2 p-4 rounded-2xl flex justify-between items-center cursor-pointer opacity-50 bg-gray-50">
+                            <input type="radio" name="date" class="hidden" disabled>
+                            <span class="text-[15px] font-medium text-gray-400">3/22(토) 오후 4시 [138기]</span>
+                            <span class="text-xs text-gray-400 font-bold">마감</span>
+                        </label>
+                    </div>
                 </div>
             </div>
 
-            <div class="bg-gray-50 p-4 rounded-xl">
-                <div class="flex justify-between text-sm mb-1">
-                    <span>참여 비용</span>
+            <div class="bg-gray-100 p-5 rounded-2xl">
+                <div class="flex justify-between text-sm mb-1 text-gray-500">
+                    <span>참가 비용</span>
                     <span>45,000원</span>
                 </div>
-                <div class="flex justify-between font-bold text-rose-600">
+                <div class="flex justify-between font-bold text-xl text-rose-600">
                     <span>최종 결제 금액</span>
                     <span>45,000원</span>
                 </div>
             </div>
 
-            <button onclick="alert('결제 페이지로 이동합니다.')" class="w-full bg-rose-500 text-white py-4 rounded-xl font-bold text-lg shadow-lg">
-                간편 신청하기
+            <button onclick="handlePayment()" class="w-full bg-rose-500 text-white py-5 rounded-2xl font-bold text-xl shadow-xl shadow-rose-200 transition-transform active:scale-95">
+                신청 및 결제하기
             </button>
         </div>
     </div>
 </div>
 
 <script>
+    // 1. 페이지 로드 시 기억된 정보가 있는지 확인
+    window.onload = function() {
+        const savedName = localStorage.getItem('snName');
+        const savedPhone = localStorage.getItem('snPhone');
+
+        if (savedName && savedPhone) {
+            // 저장된 정보가 있다면 바로 선택창으로 이동하고 메시지 표시
+            showStep('step-order');
+            document.getElementById('top-msg').innerText = `${savedName}님, 다시 오셨네요! 반가워요.`;
+            document.getElementById('btn-new').classList.add('hidden'); // '처음오셨나요' 버튼 숨김
+        } else {
+            // 정보가 없다면 가입창 먼저 보여줌
+            showStep('step-register');
+        }
+    }
+
+    // 2. 화면 전환 함수
     function showStep(stepId) {
         document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
         document.getElementById(stepId).classList.add('active');
     }
 
-    function saveAndGo() {
-        alert('회원 정보가 안전하게 저장되었습니다.');
-        showStep('step-order');
+    // 3. 최초 정보 저장 함수
+    function saveUserInfo() {
+        const name = document.getElementById('reg-name').value;
+        const phone = document.getElementById('reg-phone').value;
+
+        if(!name || !phone) {
+            alert('성함과 연락처를 모두 입력해주세요!');
+            return;
+        }
+
+        // 브라우저에 저장
+        localStorage.setItem('snName', name);
+        localStorage.setItem('snPhone', phone);
+
+        alert('회원 정보가 인증되었습니다. 날짜를 선택해주세요!');
+        location.reload(); // 새로고침하여 로직 반영
+    }
+
+    // 4. 결제하기 버튼 로직
+    function handlePayment() {
+        const name = localStorage.getItem('snName');
+        const phone = localStorage.getItem('snPhone');
+        
+        if(!name) {
+            alert('회원 등록을 먼저 진행해주세요!');
+            showStep('step-register');
+            return;
+        }
+
+        alert(`${name}님, 선택하신 일정으로 결제 페이지(토스/카카오 등)로 연결합니다.`);
+        // window.location.href = "여기에_결제링크_입력";
     }
 </script>
 
